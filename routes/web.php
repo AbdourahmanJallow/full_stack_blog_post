@@ -11,6 +11,8 @@ Route::post('/', [PostController::class, 'index'])->name('about');
 Route::get('/post/create', [PostController::class, 'create'])->middleware(['auth', 'verified'])->name('create');
 Route::post('/post/create', [PostController::class, 'store'])->name('post.create');
 
+Route::get('/posts/{id}', [PostController::class, 'readPost'])->name('post.view');
+
 // Update existing post
 Route::get('/posts/{id}/update', [PostController::class, 'updateView'])->name('update');
 Route::put('/post/{id}/update', [PostController::class, 'update'])->name('post.update');

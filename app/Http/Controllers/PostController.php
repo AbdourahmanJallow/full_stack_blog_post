@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -14,8 +15,6 @@ class PostController extends Controller
 
     public function index(Request $request): View
     {
-        // if ($request->user()) echo ($request->user()->name);
-
         return view('welcome', ["posts" => Post::orderBy('created_at', 'DESC')->get()]);
     }
 
@@ -24,11 +23,12 @@ class PostController extends Controller
     {
         return view('create-post');
     }
+
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             "title" => ['bail', 'required', 'unique:posts', 'max:50'],
-            "content" => ['required', 'max:255']
+            "content" => ['required', 'max:5000']
         ]);
 
         $user = $request->user();
@@ -55,11 +55,18 @@ class PostController extends Controller
         return redirect()->route('welcome');
     }
 
+    public function readPost(Request $request): View
+    {
+        $post = Post::find($request->route('id'));
+        $owner = User::find($post->user_id);
+
+        return view('post-view', ['post' => $post, 'blog_owner' => $owner]);
+    }
+
 
     public function updateView(Request $request): View
     {
-        $post = Post::find($request->route('id'));
-        return view('update-post', ['post' => $post]);
+        return view('update-post', ['post' => Post::find($request->route('id'))]);
     }
     public function update(Request $request, $id)
     {
