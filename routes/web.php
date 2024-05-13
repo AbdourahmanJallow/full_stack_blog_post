@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -12,9 +13,10 @@ Route::get('/post/create', [PostController::class, 'create'])->middleware(['auth
 Route::post('/post/create', [PostController::class, 'store'])->name('post.create');
 
 Route::get('/posts/{id}', [PostController::class, 'readPost'])->name('post.view');
+Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('post.comment.store');
 
 // Update existing post
-Route::get('/posts/{id}/update', [PostController::class, 'updateView'])->name('update');
+Route::get('/posts/{id}/update', [PostController::class, 'edit'])->name('update');
 Route::put('/post/{id}/update', [PostController::class, 'update'])->name('post.update');
 
 // Delete existing post

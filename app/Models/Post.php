@@ -15,7 +15,7 @@ class Post extends Model
         'user_id'
     ];
 
-    public function coments()
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }

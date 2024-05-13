@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\View\View;
@@ -60,11 +61,11 @@ class PostController extends Controller
         $post = Post::find($request->route('id'));
         $owner = User::find($post->user_id);
 
-        return view('post-view', ['post' => $post, 'blog_owner' => $owner]);
+        return view('post-view', ['post' => $post, 'blog_owner' => $owner,]);
     }
 
 
-    public function updateView(Request $request): View
+    public function edit(Request $request): View
     {
         return view('update-post', ['post' => Post::find($request->route('id'))]);
     }
@@ -105,6 +106,27 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('welcome')->with('success', 'Post deleted successfully');
+    }
+
+    public function comment(Request $request, $post_id)
+    {
+        // $post_id = $request->route('id');
+        $user = $request->user();
+
+        // $commentValidate = $request->validate(['content' => ['bail', 'required', 'max:500']]);
+
+        // $post = Post::find($post_id);
+
+        // if (!$post) {
+        //     return
+        //         Redirect::back()->with('error', 'Post not found.');
+        // }
+
+        $comment = Comment::create(['user_id' => $user->id, 'post_id' => $post_id, 'content' => $request->comment]);
+
+        // $post->comments()->save($comment);
+
+        return Redirect::back()->with('success', 'Comment created successfully');
     }
 
 

@@ -10,7 +10,7 @@
     <div class="lg:col-span-2 flex flex-col justify-between overflow-hidden">
         <div>
             <h2 class="text-white text-lg lg:text-3xl mb-5">
-                {{$post->title}} {{$post->user_id}}
+                {{$post->title}}
             </h2>
             <p class="">
                 @if(strlen($post->content) < 200)

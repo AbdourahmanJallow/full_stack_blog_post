@@ -2,7 +2,10 @@
 
 <div class="flex flex-col justify-center lg:items-start">
     <div class="px-4 w-full">
-        <h3 class="text-3xl md:text-5xl text-white mb-10">Post a new blog</h3>
+        <h1 class="font-bold text-3xl md:text-5xl mb-2 text-pink-500">
+            Post New Blog
+        </h1>
+        <div class="h-[1px] bg-slate-700 w-full mb-10"></div>
 
         <form
             action="{{ route('post.create') }}"
