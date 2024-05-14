@@ -85,29 +85,29 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-    public function profileImage(Request $request)
+    // public function profileImage(Request $request)
 
-    {
-        if (!$request->hasFile('profile_image')) {
-            return
-                Redirect::route('profile.edit')->with('error', 'No image provided');
-        }
+    // {
+    //     if (!$request->hasFile('profile_image')) {
+    //         return
+    //             Redirect::route('profile.edit')->with('error', 'No image provided');
+    //     }
 
-        $validate = $request->validate(['profile_image' => 'image|mimes:jpg,png,jpeg,svg|max:2048']);
+    //     $validate = $request->validate(['profile_image' => 'image|mimes:jpg,png,jpeg,svg|max:2048']);
 
-        $profile_image = $request->file('profile_image');
+    //     $profile_image = $request->file('profile_image');
 
-        $profile_image_name = time() . '.' . $profile_image->getClientOriginalExtension();
+    //     $profile_image_name = time() . '.' . $profile_image->getClientOriginalExtension();
 
-        $profile_image->move(public_path('/assets/profile_images/'), $profile_image_name);
+    //     $profile_image->move(public_path('/assets/profile_images/'), $profile_image_name);
 
-        $profile_image_name = $request->getSchemeAndHttpHost() . '/assets/profile_images/' . $profile_image_name;
+    //     $profile_image_name = $request->getSchemeAndHttpHost() . '/assets/profile_images/' . $profile_image_name;
 
-        $user = $request->user();
-        $user->profile_image = $profile_image_name;
-        $user->save();
+    //     $user = $request->user();
+    //     $user->profile_image = $profile_image_name;
+    //     $user->save();
 
-        return
-            Redirect::route('profile.edit')->with('status', 'profile-image updated.');
-    }
+    //     return
+    //         Redirect::route('profile.edit')->with('status', 'profile-image updated.');
+    // }
 }

@@ -55,7 +55,13 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($request->route('id'));
 
-        return view('post-view', ['post' => $post, 'blog_owner' =>  $post->user]);
+        $isLiked = null;
+
+        if ($request->user()) {
+            $isLiked = $post->likes()->where('user_id', $request->user()->id)->first();
+        }
+
+        return view('post-view', ['post' => $post, 'blog_owner' =>  $post->user, 'isliked' => $isLiked]);
     }
 
 
@@ -96,12 +102,5 @@ class PostController extends Controller
 
         return
             Redirect::route('profile.edit')->with('status', 'Post deleted successfully.');
-    }
-
-    public function comment(Request $request, $post_id)
-    {
-        $comment = Comment::create(['user_id' => $request->user()->id, 'post_id' => $post_id, 'content' => $request->comment]);
-
-        return Redirect::back()->with('success', 'Comment created successfully');
     }
 }

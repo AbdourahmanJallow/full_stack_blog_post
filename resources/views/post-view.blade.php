@@ -20,12 +20,25 @@
             </p>
 
             <div class="mt-5 flex gap-1 items-center rounded-md py-3">
-                <button class="btn btn-sm btn-ghost">
-                    <x-icons.thumb-up class="w-6 h-6" />
-                </button>
+                @if(auth()->user())
+                <form
+                    method="post"
+                    action="{{ $isliked ? route('post.like.destroy', $post->id) : route('post.like.store', $post->id)}}"
+                >
+                    @csrf @method('POST')
+                    <button type="submit" class="btn btn-sm btn-ghost">
+                        <x-icons.thumb-up
+                            class="w-6 h-6 {{
+                                $isliked ? 'text-blue-500' : ''
+                            }}"
+                        />
+                    </button>
+                </form>
+
                 <button class="btn btn-sm btn-ghost">
                     <x-icons.thumb-down class="w-6 h-6" />
                 </button>
+                @endif
                 <button class="btn btn-sm btn-ghost">
                     <x-icons.share class="w-6 h-6" />
                 </button>
@@ -47,11 +60,11 @@
                     </div>
                 </div>
 
-                <!-- <div className="avatar placeholder">
+                <!-- <div class="avatar placeholder">
                     <div
-                        className="bg-slate-500 text-neutral-content rounded-full w-24"
+                        class="bg-slate-500 text-neutral-content rounded-full w-24"
                     >
-                        <span className="text-3xl">D</span>
+                        <span class="text-3xl">D</span>
                     </div>
                 </div> -->
                 @endif
