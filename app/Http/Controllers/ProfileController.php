@@ -46,7 +46,7 @@ class ProfileController extends Controller
 
         $newProfileName = '';
         if ($request->hasFile('profile_image')) {
-            $validate = $request->validate(['profile_image' => 'image|mimes:jpg,png,jpeg,svg|max:2048']);
+            $validate = $request->validate(['profile_image' => 'image|mimes:jpg,png,jpeg,svg,avif|max:2048']);
 
             $newProfileImage = $request->file('profile_image');
             $newProfileName = time() . '.' . $newProfileImage->getClientOriginalExtension();
