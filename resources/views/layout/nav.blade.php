@@ -10,23 +10,27 @@
                     >Blogs</a
                 >
             </li>
+            @if(!auth()->user())
             <li>
                 <a class="link link-hover" href="{{ route('login') }}">Login</a>
             </li>
-
-            <li>
-                <a class="link link-hover" href="{{ route('create') }}"
-                    >Create-Blog</a
-                >
-            </li>
+            @endif
             <li>
                 <a class="link link-hover" href="{{ route('about') }}">About</a>
             </li>
 
+            @if(auth()->user())
+            <li>
+                <a class="link link-hover" href="{{ route('profile.edit') }}"
+                    >Profile</a
+                >
+            </li>
+            @endif @if(auth()->user())
             <form action="{{ route('logout') }}" method="post">
                 @csrf
                 <button type="submit" class="link link-hover">logout</button>
             </form>
+            @endif
         </ul>
 
         <div class="flex sm:hidden">

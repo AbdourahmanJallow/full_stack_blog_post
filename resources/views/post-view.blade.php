@@ -29,7 +29,7 @@
                 {{$post->content}}
             </p>
 
-            <div class="mt-5 flex justify-evenly items-center rounded-md p-3">
+            <div class="mt-5 flex gap-1 items-center rounded-md py-3">
                 <button class="btn btn-sm btn-ghost">
                     <x-icons.thumb-up class="w-6 h-6" />
                 </button>
@@ -49,7 +49,7 @@
                 </button>
             </div>
             <div
-                class="mt-5 w-full flex flex-col border-[1px] border-gray-700 rounded-md px-3 py-8"
+                class="mt-5 w-full flex flex-col border-[1px] border-slate-700 rounded-md px-3 py-8"
             >
                 <form
                     action="{{ route('post.comment.store', $post->id) }}"

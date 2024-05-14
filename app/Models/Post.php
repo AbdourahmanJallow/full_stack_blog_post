@@ -24,13 +24,4 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    public static function rules()
-    {
-        return [
-            'title' => 'required',
-            'content' => 'required',
-            'user_id' => 'required|exists:users,id',
-        ];
-    }
 }

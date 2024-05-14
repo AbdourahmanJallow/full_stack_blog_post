@@ -44,10 +44,9 @@
             />
 
             <textarea
-                placeholder="Content"
                 name="content"
                 class="textarea textarea-lg textarea-bordered w-full"
-                rows="4"
+                rows="12"
             >
             {{$post->content}}
             </textarea>

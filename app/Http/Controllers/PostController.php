@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
@@ -9,6 +10,7 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 
 class PostController extends Controller
@@ -25,16 +27,9 @@ class PostController extends Controller
         return view('create-post');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(PostRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            "title" => ['bail', 'required', 'unique:posts', 'max:50'],
-            "content" => ['required', 'max:5000']
-        ]);
-
-        $user = $request->user();
-
-        $post = Post::create(["title" => $request->title, "content" => $request->content, "user_id" => $user->id]);
+        $post = Post::create(["title" => $request->title, "content" => $request->content, "user_id" => auth()->user()->id]);
 
         $imageName = '';
 
@@ -58,10 +53,9 @@ class PostController extends Controller
 
     public function readPost(Request $request): View
     {
-        $post = Post::find($request->route('id'));
-        $owner = User::find($post->user_id);
+        $post = Post::findOrFail($request->route('id'));
 
-        return view('post-view', ['post' => $post, 'blog_owner' => $owner,]);
+        return view('post-view', ['post' => $post, 'blog_owner' =>  $post->user]);
     }
 
 
@@ -71,72 +65,43 @@ class PostController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $post = Post::find($id);
-        $user = $request->user();
+        $post = Post::where('id', $id)->where('user_id', $request->user()->id)->first();
 
         if (!$post) {
             return redirect()->back()->with('error', 'Post not found');
         }
 
-        if ($user->id != $post->user_id) {
-            return redirect()->back()->with('error', 'You are not authorized to update this post.');
-        }
+        $post->update($request->all());
 
-        $post->title = $request->title;
-        $post->content = $request->content;
-        $post->save();
-
-        return redirect()->route('welcome')->with('success', 'Post updated successfully');
+        return
+            Redirect::route('profile.edit')->with('status', 'Post updated successfully');
     }
 
 
     public function delete(Request $request, $id): RedirectResponse
     {
-        $post = Post::find($id);
-        $user = $request->user();
+        $post = Post::where('id', $id)->where('user_id', $request->user()->id)->first();
 
         if (!$post) {
             return redirect()->back()->with('error', 'Post not found');
         }
 
-        if ($user->id != $post->user_id) {
-            return redirect()->back()->with('error', 'You are not authorized to delete this post.');
+        $imageName = public_path('assets/images/' . basename($post->image));
+
+        if (File::exists($imageName)) {
+            File::delete($imageName);
         }
 
         $post->delete();
 
-        return redirect()->route('welcome')->with('success', 'Post deleted successfully');
+        return
+            Redirect::route('profile.edit')->with('status', 'Post deleted successfully.');
     }
 
     public function comment(Request $request, $post_id)
     {
-        // $post_id = $request->route('id');
-        $user = $request->user();
-
-        // $commentValidate = $request->validate(['content' => ['bail', 'required', 'max:500']]);
-
-        // $post = Post::find($post_id);
-
-        // if (!$post) {
-        //     return
-        //         Redirect::back()->with('error', 'Post not found.');
-        // }
-
-        $comment = Comment::create(['user_id' => $user->id, 'post_id' => $post_id, 'content' => $request->comment]);
-
-        // $post->comments()->save($comment);
+        $comment = Comment::create(['user_id' => $request->user()->id, 'post_id' => $post_id, 'content' => $request->comment]);
 
         return Redirect::back()->with('success', 'Comment created successfully');
     }
-
-
-    // public function uploadImage(Request $request): string
-    // {
-    //     $validate = $request->validate(['image' => 'image|mimes:jpg,png,jpeg,svg|max:2048']);
-
-    //     $imageName = time() . '.' . $request->image->extension();
-    //     $request->image->move(public_path('images'), $imageName);
-
-    //     return $imageName;
-    // }
 }

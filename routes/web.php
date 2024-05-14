@@ -16,7 +16,7 @@ Route::get('/posts/{id}', [PostController::class, 'readPost'])->name('post.view'
 Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('post.comment.store');
 
 // Update existing post
-Route::get('/posts/{id}/update', [PostController::class, 'edit'])->name('update');
+Route::get('/posts/{id}/update', [PostController::class, 'edit'])->name('post.edit');
 Route::put('/post/{id}/update', [PostController::class, 'update'])->name('post.update');
 
 // Delete existing post
@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/profile/image', [ProfileController::class, 'profileImage'])->name('profile.image.update');
 });
 
 require __DIR__ . '/auth.php';
