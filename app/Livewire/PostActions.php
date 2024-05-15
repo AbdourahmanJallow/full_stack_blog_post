@@ -12,11 +12,13 @@ class PostActions extends Component
 
     public $isliked;
     public $post;
+    public $totalLikes;
 
     public function mount($isliked, $postId)
     {
         $this->isliked = $isliked;
         $this->post = Post::findOrFail($postId);
+        $this->totalLikes = Like::where('post_id', $postId)->count();
     }
 
     public function storelike()
@@ -29,6 +31,7 @@ class PostActions extends Component
         }
 
         $this->isliked = Like::create(['user_id' => auth()->user()->id, 'post_id' => $this->post->id]);
+        $this->totalLikes = Like::where('post_id', $this->post->id)->count();
     }
 
     public function destroylike()
@@ -42,6 +45,7 @@ class PostActions extends Component
 
         $userLike->delete();
         $this->isliked = null;
+        $this->totalLikes = Like::where('post_id', $this->post->id)->count();
     }
     public function render()
     {
