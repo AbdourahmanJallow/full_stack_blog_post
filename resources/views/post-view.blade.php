@@ -1,7 +1,7 @@
 @extends('layout.layout') @section('content')
 <div class="w-full px-6 py-5">
     <h1 class="font-bold text-3xl md:text-5xl mb-4 text-pink-500">
-        {{$post->title}}
+        {{$post->title}} {{$post->id}}
     </h1>
 
     <div class="h-[1px] bg-slate-700 w-full" />
@@ -19,38 +19,7 @@
                 {{$post->content}}
             </p>
 
-            <div class="mt-5 flex gap-1 items-center rounded-md py-3">
-                @if(auth()->user())
-                <form
-                    method="post"
-                    action="{{ $isliked ? route('post.like.destroy', $post->id) : route('post.like.store', $post->id)}}"
-                >
-                    @csrf @method('POST')
-                    <button type="submit" class="btn btn-sm btn-ghost">
-                        <x-icons.thumb-up
-                            class="w-6 h-6 {{
-                                $isliked ? 'text-blue-500' : ''
-                            }}"
-                        />
-                    </button>
-                </form>
-
-                <button class="btn btn-sm btn-ghost">
-                    <x-icons.thumb-down class="w-6 h-6" />
-                </button>
-                @endif
-                <button class="btn btn-sm btn-ghost">
-                    <x-icons.share class="w-6 h-6" />
-                </button>
-                <button class="btn btn-sm btn-ghost">
-                    <x-icons.bookmark class="w-6 h-6" />
-                </button>
-                <button class="btn btn-sm btn-ghost">
-                    <label for="comment">
-                        <x-icons.chat class="w-6 h-6" />
-                    </label>
-                </button>
-            </div>
+            <livewire:post-actions :isliked="$isliked" :postId="$post->id" />
 
             <div class="relative mt-2 flex gap-4">
                 @if($blog_owner->profile_image)

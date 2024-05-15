@@ -4,6 +4,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Counter;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('welcome');
@@ -29,6 +30,8 @@ Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name
 // Add and remove like
 Route::post('/posts/{post}/like', [LikeController::class, 'store'])->name('post.like.store');
 Route::post('/posts/{post}/destroylike', [LikeController::class, 'destroy'])->name('post.like.destroy');
+
+Route::get('/counter', Counter::class);
 
 
 Route::get('/dashboard', function () {

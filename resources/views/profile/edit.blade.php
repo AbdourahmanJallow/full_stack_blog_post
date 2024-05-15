@@ -34,7 +34,10 @@
             </div>
 
             <div class="">
-                <h3 class="text-white text-3xl font-bold">My Blogs</h3>
+                <div class="flex justify-between mt-10">
+                    <h3 class="text-white text-3xl font-bold">My Blogs</h3>
+                    @include('..shared.add-btn')
+                </div>
                 <div class="grid grid-cols-1 place-items-start">
                     @foreach($posts as $post) @include('..shared.post-card')
                     @endforeach

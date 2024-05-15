@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom classes for Space Grotesk font with different weights */
+.space-grotesk {
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+}
+.space-grotesk-300 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 300;
+    font-optical-sizing: auto;
+}
+
+.space-grotesk-400 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 400;
+    font-optical-sizing: auto;
+}
+
+/* Custom classes for Space Grotesk font with different weights */
+.space-grotesk-500 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500;
+    font-optical-sizing: auto;
+}
+
+.space-grotesk-600 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-optical-sizing: auto;
+}
+
+/* Add more classes for other weights as needed */
