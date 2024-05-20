@@ -7,16 +7,16 @@
         method="post"
     >
         @csrf @method('POST')
-        <textarea
-            name="comment"
-            wire:model="comment"
+        <input
+            name="content"
+            wire:model="content"
             type="text"
-            class="textarea textarea-sm textarea-bordered w-full p-2"
-        >
-        </textarea>
+            class="input input-sm input-bordered w-full p-2"
+        />
+
         <div class="flex flex-col justify-end">
             <x-primary-button class="ms-3 min-w-fit">
-                {{ __("Send") }}
+                {{ __("Post") }}
             </x-primary-button>
         </div>
     </form>
@@ -29,8 +29,13 @@
         Comment(s)
     </h3>
 
-    <div class="flex flex-col justify-start gap-5 mt-2 lg:px-10">
-        @foreach($post->comments as $comment) @include('..shared.comment-card')
+    <div class="flex flex-col justify-start gap-5 mt-4 lg:px-10">
+        @foreach($comments as $comment)
+        <livewire:comment-card
+            :key="$comment->id"
+            :comment="$comment"
+            :isLast="$loop->last"
+        />
         @endforeach
     </div>
 </div>

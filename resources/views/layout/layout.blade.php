@@ -12,7 +12,7 @@
             href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"
             rel="stylesheet"
         />
-        <title>Laravel</title>
+        <title>Blog Verse</title>
 
         @vite('../../../resources/css/app.css')
     </head>

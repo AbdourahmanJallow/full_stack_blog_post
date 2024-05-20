@@ -23,5 +23,35 @@
     </div>
     @endif
 
-    <div class="chat-bubble text-sm text-white">{{$comment->content}}</div>
+    <div class="chat-bubble text-sm text-white">
+        <div>
+            {{$comment->content}}
+        </div>
+
+        <div class="flex justify-start items-end gap-3 p-2">
+            <form
+                action="{{route('post.comment.delete', ['post'=>$post->id, 'comment'=> $comment->id])}}"
+                method="post"
+            >
+                @csrf @method('DELETE')
+                <button
+                    type="submit"
+                    onclick="return confirm('Sure want to delete?')"
+                    class="p-1 cursor-pointer"
+                >
+                    <x-icons.trash class="w-4 h-4 text-slate-500" />
+                </button>
+            </form>
+
+            <form
+                action="{{route('post.comment.store', ['post'=>$post->id, 'comment'=> $comment->id])}}"
+                method="post"
+            >
+                @csrf @method('POST')
+                <button type="submit" class="p-1 cursor-pointer text-xs">
+                    reply
+                </button>
+            </form>
+        </div>
+    </div>
 </div>

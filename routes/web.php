@@ -24,12 +24,13 @@ Route::put('/post/{id}/update', [PostController::class, 'update'])->name('post.u
 // Delete existing post
 Route::delete('/post/{id}/delete', [PostController::class, 'delete'])->name('post.delete');
 
-// Add and remove comment
-Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('post.comment.store');
-
 // Add and remove like
 Route::post('/posts/{post}/like', [LikeController::class, 'store'])->name('post.like.store');
 Route::post('/posts/{post}/destroylike', [LikeController::class, 'destroy'])->name('post.like.destroy');
+
+// Add and remove comment
+Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('post.comment.store');
+Route::delete('/posts/{post}/comments/{comment}/delete', [CommentController::class, 'destroy'])->name('post.comment.delete');
 
 Route::get('/counter', Counter::class);
 

@@ -13,6 +13,7 @@ class Comment extends Model
         "user_id",
         "post_id",
         "content",
+        "parent_id"
     ];
 
     public function post()
@@ -23,5 +24,21 @@ class Comment extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Comment::class, 'parent_id');
+    }
+
+    // Parent comment (if this is a reply to another comment)
+    public function parent()
+    {
+        return $this->belongsTo(Comment::class);
+    }
+
+    public function scopeTopLevel($query)
+    {
+        return $query->whereNull('parent_id');
     }
 }
