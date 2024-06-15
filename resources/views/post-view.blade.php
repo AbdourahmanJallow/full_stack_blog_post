@@ -19,7 +19,11 @@
                 {{$post->content}}
             </p>
 
-            <livewire:post-actions :isliked="$isliked" :postId="$post->id" />
+            <livewire:post-actions
+                :isliked="$isliked"
+                :isDisliked="$isDisliked"
+                :postId="$post->id"
+            />
 
             <div class="relative mt-2 flex gap-4">
                 @if($blog_owner->profile_image)

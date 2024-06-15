@@ -56,12 +56,15 @@ class PostController extends Controller
         $post = Post::findOrFail($request->route('id'));
 
         $isLiked = null;
+        $isDisliked = null;
 
         if ($request->user()) {
             $isLiked = $post->likes()->where('user_id', $request->user()->id)->first();
+
+            $isDisliked = $post->dislikes()->where('user_id', $request->user()->id)->first();
         }
 
-        return view('post-view', ['post' => $post, 'blog_owner' =>  $post->user, 'isliked' => $isLiked]);
+        return view('post-view', ['post' => $post, 'blog_owner' =>  $post->user, 'isliked' => $isLiked, 'isDisliked' => $isDisliked],);
     }
 
 

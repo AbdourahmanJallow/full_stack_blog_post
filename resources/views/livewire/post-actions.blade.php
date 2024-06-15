@@ -20,19 +20,28 @@
         @endif
     </button>
 
-    <button class="btn btn-sm btn-ghost">
-        <x-icons.thumb-down class="w-6 h-6" />
+    <button
+        @if($isDisliked)
+        wire:click="destroyDislike"
+        @else
+        wire:click="storeDislike"
+        @endif
+        class="btn btn-sm btn-ghost"
+    >
+        <x-icons.thumb-down
+            class="w-6 h-6 {{ $isDisliked ? 'text-[#24a0ed]' : '' }}"
+        />
     </button>
     @endif
     <button class="btn btn-sm btn-ghost">
         <x-icons.share class="w-6 h-6" />
     </button>
-    <button class="btn btn-sm btn-ghost">
+    <!-- <button class="btn btn-sm btn-ghost">
         <x-icons.bookmark class="w-6 h-6" />
     </button>
     <button class="btn btn-sm btn-ghost">
         <label for="comment">
             <x-icons.chat class="w-6 h-6" />
         </label>
-    </button>
+    </button> -->
 </div>

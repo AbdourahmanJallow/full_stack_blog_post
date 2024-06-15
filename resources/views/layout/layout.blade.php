@@ -19,7 +19,7 @@
 
     <body class="space-grotesk">
         <div class="min-h-screen flex flex-col">
-            @include('layout.nav')
+            <livewire:navbar />
             <div class="w-full container mx-auto max-w-5xl lg:py-10">
                 @yield('content')
             </div>

@@ -86,7 +86,7 @@
     </div>
     @endif
 
-    <div class="ml-24 mt-2">
+    <div class="ml-10 mt-2">
         @if ($comment->children) @foreach ($comment->children as $reply)
         <livewire:comment-card
             :key="$reply->id"

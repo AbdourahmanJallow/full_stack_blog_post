@@ -44,6 +44,8 @@ class CommentSection extends Component
         $this->post->load(['comments' => function ($query) {
             $query->topLevel()->with('children');
         }]);
+
+        // $this->post = Post::find($this->post->id); // Re-fetch the post to update the comments relation
     }
 
     // public function destroy(Comment $comment)

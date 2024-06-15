@@ -2,7 +2,9 @@
     <div
         class="w-full container mx-auto max-w-5xl flex justify-between items-center"
     >
-        <h1 class="text-xl md:text-3xl font-semibold">Blog Verse</h1>
+        <a class="" href="{{ route('welcome') }}">
+            <h1 class="text-xl md:text-3xl font-semibold">Blog Verse</h1>
+        </a>
 
         <ul class="hidden sm:flex gap-5 justify-center text-sm">
             <li>
