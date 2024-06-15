@@ -53,13 +53,17 @@
         </a>
 
         <div class="relative">
-            <button class="cursor-pointer p-4" wire:click="toggleMenu">
+            <button
+                class="cursor-pointer p-4"
+                wire:click="$set('isOpen', true)"
+            >
                 <x-icons.menu class="w-7 h-7" />
             </button>
 
             @if ($isOpen)
             <div
-                class="fixed top-0 right-0 bottom-0 flex justify-between items-start w-[50vw] min-h-lvh sm:hidden bg-slate-800"
+                wire:transition.in.out.opacity.duration.300ms.scale.origin.right
+                class="z-10 fixed top-0 right-0 bottom-0 flex justify-between items-start w-[50vw] min-h-lvh sm:hidden bg-slate-800"
             >
                 <ul class="flex flex-col gap-10 mt-4 text-2xl px-4">
                     <li>
@@ -97,7 +101,10 @@
                     @endif
                 </ul>
 
-                <button class="cursor-pointer p-4" wire:click="toggleMenu">
+                <button
+                    class="cursor-pointer p-4"
+                    wire:click="$set('isOpen', false)"
+                >
                     <x-icons.x class="w-7 h-7" />
                 </button>
             </div>
