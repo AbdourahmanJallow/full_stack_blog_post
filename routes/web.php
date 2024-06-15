@@ -15,14 +15,14 @@ Route::get('/post/create', [PostController::class, 'create'])->middleware(['auth
 Route::post('/post/create', [PostController::class, 'store'])->name('post.create');
 
 // read post
-Route::get('/posts/{id}', [PostController::class, 'readPost'])->name('post.view');
+Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('post.view');
 
 // Update existing post
-Route::get('/posts/{id}/update', [PostController::class, 'edit'])->name('post.edit');
-Route::put('/post/{id}/update', [PostController::class, 'update'])->name('post.update');
+Route::get('/posts/{post:slug}/update', [PostController::class, 'edit'])->name('post.edit');
+Route::put('/{post:slug}/update', [PostController::class, 'update'])->name('post.update');
 
 // Delete existing post
-Route::delete('/post/{id}/delete', [PostController::class, 'delete'])->name('post.delete');
+Route::delete('/{post:slug}/delete', [PostController::class, 'delete'])->name('post.delete');
 
 // Add and remove like
 Route::post('/posts/{post}/like', [LikeController::class, 'store'])->name('post.like.store');

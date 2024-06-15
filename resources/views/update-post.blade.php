@@ -30,7 +30,7 @@
         </h1>
         <div class="h-[1px] bg-slate-700 w-full mb-10"></div>
         <form
-            action="{{ route('post.update', ['id'=>request()->route('id')]) }}"
+            action="{{ route('post.update', ['post'=>$post->slug]) }}"
             method="post"
             class="flex flex-col gap-5 justify-center items-center w-full lg:w-1/2"
         >

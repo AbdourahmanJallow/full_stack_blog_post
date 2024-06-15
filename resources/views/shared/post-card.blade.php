@@ -23,21 +23,21 @@
             <div>
                 <a
                     class="link link-hover text-pink-500 mt-6 w-fit"
-                    href="{{ route('post.view', ['id'=> $post->id])}}"
+                    href="{{ route('post.view', ['post'=> $post->slug])}}"
                     >Read more
                     <!-- <x-icons.arrow-sm-right class="text-xs" /> -->
                 </a>
             </div>
             @if(request()->routeIs('profile.edit'))
             <div class="flex gap-2">
-                <a href="{{route('post.edit', ['id'=>$post->id])}}">
+                <a href="{{route('post.edit', ['post'=> $post->slug])}}">
                     <button type="submit" class="btn btn-ghost btn-sm">
                         <x-icons.tag class="w-4 h-4 text-green-600" />
                     </button>
                 </a>
 
                 <form
-                    action="{{route('post.delete', ['id'=>$post->id])}}"
+                    action="{{route('post.delete', ['post'=>$post->slug])}}"
                     method="post"
                 >
                     @csrf @method('DELETE')

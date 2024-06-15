@@ -63,7 +63,7 @@
             @if ($isOpen)
             <div
                 wire:transition.in.out.opacity.duration.300ms.scale.origin.right
-                class="z-10 fixed top-0 right-0 bottom-0 flex justify-between items-start w-[50vw] min-h-lvh sm:hidden bg-slate-800"
+                class="z-10 fixed top-0 right-0 bottom-0 flex justify-between items-start w-[75vw] min-h-lvh sm:hidden bg-slate-800"
             >
                 <ul class="flex flex-col gap-10 mt-4 text-2xl px-4">
                     <li>

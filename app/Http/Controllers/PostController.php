@@ -51,57 +51,57 @@ class PostController extends Controller
         return redirect()->route('welcome');
     }
 
-    public function readPost(Request $request): View
+    public function show(Post $post): View
     {
-        $post = Post::findOrFail($request->route('id'));
-
         $isLiked = null;
         $isDisliked = null;
 
-        if ($request->user()) {
-            $isLiked = $post->likes()->where('user_id', $request->user()->id)->first();
+        if (auth()->user()) {
+            $isLiked = $post->likes()->where('user_id', auth()->user()->id)->first();
 
-            $isDisliked = $post->dislikes()->where('user_id', $request->user()->id)->first();
+            $isDisliked = $post->dislikes()->where('user_id', auth()->user()->id)->first();
         }
+
+        // $post->content = nl2p($post->content);
 
         return view('post-view', ['post' => $post, 'blog_owner' =>  $post->user, 'isliked' => $isLiked, 'isDisliked' => $isDisliked],);
     }
 
 
-    public function edit(Request $request): View
+    public function edit(Post $post): View
     {
-        return view('update-post', ['post' => Post::find($request->route('id'))]);
+        return view('update-post', ['post' => $post]);
     }
-    public function update(Request $request, $id)
+    public function update(Post $post)
     {
-        $post = Post::where('id', $id)->where('user_id', $request->user()->id)->first();
+        $foundPost = Post::where('slug', $post->slug)->where('user_id', auth()->user()->id)->first();
 
-        if (!$post) {
+        if (!$foundPost) {
             return redirect()->back()->with('error', 'Post not found');
         }
 
-        $post->update($request->all());
+        $foundPost->update(request()->all());
 
         return
             Redirect::route('profile.edit')->with('status', 'Post updated successfully');
     }
 
 
-    public function delete(Request $request, $id): RedirectResponse
+    public function delete(Post $post): RedirectResponse
     {
-        $post = Post::where('id', $id)->where('user_id', $request->user()->id)->first();
+        $foundPost = Post::where('slug', $post->slug)->where('user_id', auth()->user()->id)->first();
 
-        if (!$post) {
+        if (!$foundPost) {
             return redirect()->back()->with('error', 'Post not found');
         }
 
-        $imageName = public_path('assets/images/' . basename($post->image));
+        $imageName = public_path('assets/images/' . basename($foundPost->image));
 
         if (File::exists($imageName)) {
             File::delete($imageName);
         }
 
-        $post->delete();
+        $foundPost->delete();
 
         return
             Redirect::route('profile.edit')->with('status', 'Post deleted successfully.');

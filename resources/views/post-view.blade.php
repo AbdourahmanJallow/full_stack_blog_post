@@ -15,9 +15,12 @@
         />
 
         <div class="py-5">
-            <p class="text-white text-wrap">
-                {{$post->content}}
-            </p>
+            <!-- <div class="text-white text-wrap">{!! nl2p($post->content) !!}</div> -->
+            <div class="text-white text-wrap">
+                @foreach (explode("\n\n", $post->content) as $paragraph)
+                <p>{!! nl2br(e(trim($paragraph))) !!}</p>
+                @endforeach
+            </div>
 
             <livewire:post-actions
                 :isliked="$isliked"
