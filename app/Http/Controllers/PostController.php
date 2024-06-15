@@ -16,9 +16,14 @@ use Illuminate\Support\Facades\Redirect;
 class PostController extends Controller
 {
 
-    public function index(Request $request): View
+    public function index(): View
     {
         return view('welcome', ["posts" => Post::orderBy('created_at', 'DESC')->get()]);
+    }
+
+    public function about(): View
+    {
+        return view('about');
     }
 
 

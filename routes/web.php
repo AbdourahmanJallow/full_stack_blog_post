@@ -8,7 +8,7 @@ use App\Livewire\Counter;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('welcome');
-Route::post('/', [PostController::class, 'index'])->name('about');
+Route::get('/about', [PostController::class, 'about'])->name('about');
 
 // Create new post
 Route::get('/post/create', [PostController::class, 'create'])->middleware(['auth', 'verified'])->name('create');

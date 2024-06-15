@@ -14,20 +14,20 @@
                         >Blogs</a
                     >
                 </li>
-                @if(!auth()->user())
-                <li>
-                    <a class="link link-hover" href="{{ route('login') }}"
-                        >Login</a
-                    >
-                </li>
-                @endif
+
                 <li>
                     <a class="link link-hover" href="{{ route('about') }}"
                         >About</a
                     >
                 </li>
 
-                @if(auth()->user())
+                @if(!auth()->user())
+                <li>
+                    <a class="link link-hover" href="{{ route('login') }}"
+                        >Login</a
+                    >
+                </li>
+                @endif @if(auth()->user())
                 <li>
                     <a
                         class="link link-hover"
@@ -71,20 +71,20 @@
                             >Blogs</a
                         >
                     </li>
-                    @if(!auth()->user())
-                    <li>
-                        <a class="link link-hover" href="{{ route('login') }}"
-                            >Login</a
-                        >
-                    </li>
-                    @endif
+
                     <li>
                         <a class="link link-hover" href="{{ route('about') }}"
                             >About</a
                         >
                     </li>
 
-                    @if(auth()->user())
+                    @if(!auth()->user())
+                    <li>
+                        <a class="link link-hover" href="{{ route('login') }}"
+                            >Login</a
+                        >
+                    </li>
+                    @endif @if(auth()->user())
                     <li>
                         <a
                             class="link link-hover"
